@@ -2,19 +2,19 @@ import functools
 
 
 def deprecated(func=None, since=None, will_be_removed=None):
-    if not func:
+    if func is None:
         return functools.partial(deprecated, since=since, will_be_removed=will_be_removed)
 
     @functools.wraps(func)
     def g():
-        if since:
-            print(f"Warning: function {g.__name__} is deprecated since version {since}.")
-        else:
+        if since is None:
             print(f"Warning: function {g.__name__} is deprecated.")
-        if will_be_removed:
-            print(f"It will be removed in version {will_be_removed}")
         else:
+            print(f"Warning: function {g.__name__} is deprecated since version {since}.")
+        if will_be_removed is None:
             print("It will be removed in future versions.")
+        else:
+            print(f"It will be removed in version {will_be_removed}")
         return func()
     return g
 
