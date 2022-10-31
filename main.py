@@ -6,7 +6,7 @@ def deprecated(func=None, since=None, will_be_removed=None):
         return functools.partial(deprecated, since=since, will_be_removed=will_be_removed)
 
     @functools.wraps(func)
-    def g():
+    def g(*args, **kwargs):
         if since is None:
             print(f"Warning: function {g.__name__} is deprecated.")
         else:
@@ -15,7 +15,7 @@ def deprecated(func=None, since=None, will_be_removed=None):
             print("It will be removed in future versions.")
         else:
             print(f"It will be removed in version {will_be_removed}")
-        return func()
+        return func(*args, **kwargs)
     return g
 
 
