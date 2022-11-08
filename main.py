@@ -7,14 +7,8 @@ def deprecated(func=None, since=None, will_be_removed=None):
 
     @functools.wraps(func)
     def g(*args, **kwargs):
-        if since is None:
-            print(f"Warning: function {g.__name__} is deprecated.")
-        else:
-            print(f"Warning: function {g.__name__} is deprecated since version {since}.")
-        if will_be_removed is None:
-            print("It will be removed in future versions.")
-        else:
-            print(f"It will be removed in version {will_be_removed}")
+        print(f"Warning: function {g.__name__} is deprecated {'' if since is None else f'since version {since}'}.")
+        print(f"It will be removed in {'future versions' if will_be_removed is None else f'version {will_be_removed}'}.")
         return func(*args, **kwargs)
     return g
 
